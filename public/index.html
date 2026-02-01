@@ -40,23 +40,36 @@
         }
 
         async function subirImagen() {
-            const fileInput = document.getElementById('skinInput');
-            if (fileInput.files.length === 0) {
-                alert("Primero selecciona una skin, bro.");
-                return;
-            }
+    const fileInput = document.getElementById('skinInput');
+    if (fileInput.files.length === 0) {
+        alert("Primero selecciona una skin, bro.");
+        return;
+    }
 
-            const formData = new FormData();
-            formData.append('skin', fileInput.files[0]);
+    const formData = new FormData();
+    formData.append('skin', fileInput.files[0]);
 
-            try {
-                const res = await fetch('/api/upload', { method: 'POST', body: formData });
-                const data = await res.json();
-                alert(data.message || data.error);
-            } catch (err) {
-                alert("Error conectando con la API");
-            }
+    try {
+        const res = await fetch('/api/upload', { method: 'POST', body: formData });
+        const data = await res.json();
+
+        // 1. Verificamos si la respuesta trae la URL que configuramos en Python
+        if (data.url) {
+            alert("🚀 " + data.message + "\n\nLink: " + data.url);
+            
+            // Opcional: Esto copia el link al portapapeles automáticamente
+            navigator.clipboard.writeText(data.url);
+            console.log("Skin disponible en:", data.url);
+        } else {
+            // 2. Si hubo un error (como el SHA o el Token)
+            alert("❌ Error: " + (data.error || "Algo falló al subir"));
         }
+
+    } catch (err) {
+        alert("Error crítico conectando con la API");
+        console.error(err);
+    }
+}
     </script>
 </body>
 </html>
