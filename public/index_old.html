@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/png" href="image.png">
+    <meta charset="UTF-8">
+    <title>MC Skin Uploader_V1</title>
+    <style>
+        body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
+        .upload-card { 
+            border: 2px dashed #8d8569;
+            padding: 30px;
+            margin: 20px auto;
+            width: 350px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.03);
+            height:70px;
+        }
+
+        button { background: #007bff; color: rgb(0, 0, 0); border: none; padding: 10px 20px; cursor: pointer; }
+        h1 {
+            color:darkgreen;
+            margin-top: 10px; /* Esto crea un espacio real hacia arriba */
+            }
+        
+        .banner {
+            padding-top: 50px; /* Esto empuja a la imagen hacia abajo sin mover el cuadro blanco */
+            display: flex;     /* Opcional: para asegurar que se centre bien */
+            justify-content: center;
+            }
+        img{
+            display: block;
+            margin: 10px auto;
+            
+            width: 400px; /* Prueba con 600px o 700px para que se vea imponente */
+            height: auto;  /* Esto mantiene la proporción para que Steve no se vea flaco o gordo */
+            border-radius: 6px; /* Un toque extra: bordes redondeados para que se vea pro */
+            }
+        .backs{
+            background-color: #F2E8C4;
+            height: 1000px;
+            width: 50%;
+            margin-left: 25%;
+            margin-right: 25%;
+            border-radius: 5px;
+
+        }
+        #skinInput { display: none; }
+        input{
+            display: inline-block;
+            background: #4a4a4a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="backs">
+    <div class="banner">
+        <img src="image copy.png" alt="Web_banner">
+    </div>
+       <h1>Subir Skin de Minecraft</h1>
+    <div class="upload-card">
+        <label for="skinInput" class="custom-file-label">
+                📂 Seleccionar Skin (.png)
+        </label>
+        <input type="file" id="skinInput" accept="image/png" onchange="mostrarNombre()">
+        <span id="file-name">Ningún archivo seleccionado</span>
+        <button onclick="subirImagen()">Subir a GitHub</button>
+    </div>
+    </div>
+
+    <script>
+        // Función para actualizar el texto debajo
+        function mostrarNombre() {
+            const input = document.getElementById('skinInput');
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files.length > 0) {
+                fileNameDisplay.innerText = "✅ Listo: " + input.files[0].name;
+                fileNameDisplay.style.color = "darkgreen";
+            }
+        }
+
+        async function subirImagen() {
+            const fileInput = document.getElementById('skinInput');
+            if (fileInput.files.length === 0) {
+                alert("Primero selecciona una skin, bro.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('skin', fileInput.files[0]);
+
+            try {
+                const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                const data = await res.json();
+                alert(data.message || data.error);
+            } catch (err) {
+                alert("Error conectando con la API");
+            }
+        }
+    </script>
+</body>
+</html>

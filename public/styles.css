@@ -1,1 +1,81 @@
 
+body { background: #1a1a1a; color: white; font-family: sans-serif; text-align: center; }
+        
+        /* Contenedor Crema */
+        .backs {
+            background-color: #F2E8C4;
+            height: auto;
+            min-height: 800px;
+            width: 60%;
+            margin: 0 auto;
+            border-radius: 15px;
+            padding-bottom: 50px;
+        }
+
+        .banner {
+            padding-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+
+        img {
+            display: block;
+            margin: 10px auto;
+            width: 450px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            color: darkgreen;
+            margin-top: 20px;
+            font-size: 2.5rem;
+        }
+
+        /* Card de subida */
+        .upload-card {
+            border: 2px dashed #8d8569;
+            padding: 30px;
+            margin: 20px auto;
+            width: 350px;
+            border-radius: 10px;
+            background: rgba(0,0,0,0.03);
+        }
+
+        /* Ocultar input original */
+        #skinInput { display: none; }
+
+        /* Botón falso para elegir archivo */
+        .custom-file-label {
+            display: inline-block;
+            background: #4a4a4a;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 15px;
+            transition: background 0.3s;
+        }
+        .custom-file-label:hover { background: #333; }
+
+        /* Texto del nombre del archivo */
+        #file-name {
+            display: block;
+            color: #555;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        /* Botón de subir */
+        .btn-upload {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+        .btn-upload:hover { background: #0056b3; }

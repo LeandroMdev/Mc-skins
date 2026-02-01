@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="icon" type="image/png" href="image.png">
+    <meta charset="UTF-8">
+    <title>MC Skin Uploader_V1</title>
+    <link rel="stylesheet" href="styles.css">
+   
+</head>
+<body>
+    <div class="backs">
+        <div class="banner">
+            <img src="image copy.png" alt="Web_banner">
+        </div>
+        
+        <h1>Subir Skin de Minecraft</h1>
 
+        <div class="upload-card">
+            <label for="skinInput" class="custom-file-label">
+                📂 Seleccionar Skin (.png)
+            </label>
+            
+            <input type="file" id="skinInput" accept="image/png" onchange="mostrarNombre()">
+            
+            <span id="file-name">Ningún archivo seleccionado</span>
+            
+            <button class="btn-upload" onclick="subirImagen()">Subir a GitHub</button>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar el texto debajo
+        function mostrarNombre() {
+            const input = document.getElementById('skinInput');
+            const fileNameDisplay = document.getElementById('file-name');
+            if (input.files.length > 0) {
+                fileNameDisplay.innerText = "✅ Listo: " + input.files[0].name;
+                fileNameDisplay.style.color = "darkgreen";
+            }
+        }
+
+        async function subirImagen() {
+            const fileInput = document.getElementById('skinInput');
+            if (fileInput.files.length === 0) {
+                alert("Primero selecciona una skin, bro.");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('skin', fileInput.files[0]);
+
+            try {
+                const res = await fetch('/api/upload', { method: 'POST', body: formData });
+                const data = await res.json();
+                alert(data.message || data.error);
+            } catch (err) {
+                alert("Error conectando con la API");
+            }
+        }
+    </script>
+</body>
+</html>
