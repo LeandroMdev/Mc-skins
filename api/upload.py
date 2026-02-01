@@ -44,9 +44,8 @@ def upload_file():
     
     if response.status_code in [200, 201]:
     # Este es el link "Raw" que descarga la imagen directamente
-    download_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{BRANCH}/{file_path}"
-    
-    return jsonify({
+        download_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{BRANCH}/{file_path}"
+        return jsonify({
         "message": "¡Skin subida!",
         "url": download_url
-    }), 200
+        }), 200
