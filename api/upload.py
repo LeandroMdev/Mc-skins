@@ -41,9 +41,12 @@ def upload_file():
 
     # 3. Hacer el "Push" automático
     response = requests.put(url, headers=headers, json=data)
-
+    
     if response.status_code in [200, 201]:
-        return jsonify({"message": "¡Skin subida a GitHub! El mod ya puede leerla."}), 200
-    else:
-        return jsonify({"error": "GitHub rechazó la subida", "details": response.json()}), 500
-
+    # Este es el link "Raw" que descarga la imagen directamente
+    download_url = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/{BRANCH}/{file_path}"
+    
+    return jsonify({
+        "message": "¡Skin subida!",
+        "url": download_url
+    }), 200
