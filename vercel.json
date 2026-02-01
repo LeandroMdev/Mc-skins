@@ -1,5 +1,6 @@
 {
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/upload.py" }
+    { "source": "/api/(.*)", "destination": "/api/upload.py" },
+    { "source": "/(.*)", "destination": "/public/$1" }
   ]
 }
